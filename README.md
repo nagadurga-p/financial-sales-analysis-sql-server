@@ -1,96 +1,77 @@
-📊 Financial Sales Data Exploratory Data Analysis (EDA) using SQL Server
-📌 Project Overview
+# 📊 Financial Sales Data Exploratory Data Analysis (EDA) using SQL Server
 
-This project performs detailed exploratory data analysis (EDA) on a global financial sales dataset using SQL Server.
-The analysis focuses on revenue trends, profitability insights, discount elasticity, product performance, and geographic operations.
+## 📌 Project Overview
+This project performs detailed exploratory data analysis (EDA) on a global financial sales dataset using SQL Server. The aim is to extract meaningful business insights related to revenue trends, profitability, product performance, discount elasticity, geographic operations, and customer segments.
 
-The goal is to extract actionable business insights, similar to what BI analysts and financial analysts deliver to management teams.
+All queries, scripts, and analysis are written using **T-SQL on SQL Server**.
 
-🛠️ Tools & Technologies
+---
 
-Database: SQL Server
+## 🛠️ Tools & Technologies
+- **Database:** SQL Server
+- **Interface:** SQL Server Management Studio (SSMS)
+- **Dataset Format:** Excel (imported into SQL Server)
+- **Version Control:** GitHub
+- **SQL Techniques Used:** Window functions, aggregations, analytical joins, CTEs
 
-Interface: SQL Server Management Studio (SSMS)
+---
 
-Dataset Source: Excel Import
+## 📂 Dataset Overview
+The dataset consists of transactional product financial data with the following metrics:
 
-GitHub Repository: Version control & documentation
+- Segment
+- Country
+- Product
+- Discount Band
+- Units Sold
+- Sale Price
+- Manufacturing Price
+- Gross Sales
+- Discounts
+- Sales (Net)
+- COGS
+- Profit
+- Date
+- Month Number
+- Month Name
+- Year
 
-SQL Techniques: CTEs, aggregations, window functions, profitability metrics
+---
 
-📂 Dataset Overview
+## 🔍 Analysis Performed
 
-The dataset captures financial sales transactions and product operational details across multiple markets.
+### ✔ Revenue & Profitability Insights
+- Total revenue and discount impacts
+- Profitability across customer segments
+- Product-wise financial performance
 
-Key Attributes:
+### ✔ Pricing & Discount Elasticity
+- Discount band impact on revenue and margin
+- Average vs total units sold by discount category
 
-Segment (Customer type)
+### ✔ Geography & Operational Insights
+- Country-level profitability
+- Segment vs Country revenue matrix
 
-Country (Sales geography)
+### ✔ Time-Series Analysis
+- Monthly sales trends
+- Year-over-year revenue & margin growth
 
-Product
+### ✔ Unit Economics
+- Average margin per unit by product
+- Identify loss-making product categories
 
-Discount Band (Low / Medium / High)
+### ✔ Strategic Insights
+- Promotion uplift (high discount vs low)
+- Pareto (80/20 rule for product contribution)
+- Anomaly detection: unusually high discount or negative profit events
 
-Units Sold
+---
 
-Sale Price
+# 📜 SQL Query Examples
 
-Manufacturing Price
-
-Gross Sales (Before discount)
-
-Discounts (Applied amount)
-
-Net Sales (After discount)
-
-COGS (Cost of goods sold)
-
-Profit (Sales – COGS)
-
-Date, Month, Year
-
-🔍 Analysis Performed
-
-Revenue & Profitability:
-
-Total revenue, discount impact, and overall profit
-
-Segment Insights:
-
-Profit and margin contribution per customer segment
-
-Top Product Lines:
-
-Identify products with highest revenue and profitability
-
-Discount Elasticity:
-
-Understand how discount band affects units sold and margin
-
-Geography Insights:
-
-Sales and profitability performance by country
-
-Time-Series Analysis:
-
-Monthly sales trends, unit growth, and YoY performance
-
-Unit Economics:
-
-Compute gross margin per unit and detect loss-making products
-
-Strategic Analysis:
-
-Pareto rule (80/20) and promotional uplift insights
-
-Anomaly Detection:
-
-Detect negative profit or excessive discount scenarios
-
-📜 SQL Query Examples
-
-Profitability by Segment:
+## **Profitability by Segment**
+```sql
 SELECT 
     Segment,
     SUM(Sales) AS TotalSales,
@@ -101,8 +82,10 @@ SELECT
 FROM Sheet1$
 GROUP BY Segment
 ORDER BY TotalSales DESC;
+```
 
-Top Products by Profit:
+## **Top Products by Profit**
+```sql
 SELECT TOP 5
     Product,
     SUM(Profit) AS TotalProfit,
@@ -111,8 +94,10 @@ SELECT TOP 5
 FROM Sheet1$
 GROUP BY Product
 ORDER BY TotalProfit DESC;
+```
 
-Discount Band Performance:
+## **Discount Band Performance**
+```sql
 SELECT
     [Discount Band],
     SUM([Units Sold]) AS TotalUnits,
@@ -121,67 +106,76 @@ SELECT
 FROM Sheet1$
 GROUP BY [Discount Band]
 ORDER BY TotalUnits DESC;
+```
 
-📊 Key Findings & Insights
+---
 
-Government and Midmarket segments showed strongest profitability, while Enterprise had negative profit due to high cost and discounting.
+# 📊 Key Findings & Insights
 
-Channel Partners achieved exceptionally high margins (70%+), making them ideal for targeted growth strategies.
+- **Government and Midmarket segments deliver strong profitability**, while **Enterprise is loss-making** due to high COGS and discounts.
+- **Channel Partners achieve extremely high profit margins (70%+)**, showing strong potential for scaling.
+- **High discount bands increase unit volume**, but margins decline, indicating elasticity.
+- **80/20 rule observed** — a small number of products contribute the majority of revenue.
+- **Some products show negative unit margins**, highlighting inefficiencies or pricing problems.
+- **Geographic variance observed**, indicating market prioritization opportunities.
 
-High discount bands increased unit volume, but often hurt profitability.
+---
 
-Certain products are significantly more profitable, supporting an 80/20 Pareto distribution.
+# 📁 Repository Structure
 
-Some countries generate consistently higher net revenue, indicating market opportunities.
-
-📁 Repository Structure
-
+```
 financial-sales-analysis-sql-server/
 │
 ├── sql/
 │   ├── 01_data_quality_checks.sql
 │   ├── 02_distinct_values.sql
-│   ├── ...
+│   ├── 03_revenue_profit_overview.sql
+│   ├── 04_profitability_by_segment.sql
+│   ├── 05_top_products_analysis.sql
+│   ├── 06_discount_band_analysis.sql
+│   ├── 07_discount_vs_units_sold.sql
+│   ├── 08_country_performance.sql
+│   ├── 09_country_segment_matrix.sql
+│   ├── 10_monthly_trend_analysis.sql
+│   ├── 11_yoy_growth.sql
+│   ├── 12_gross_margin_unit.sql
+│   ├── 13_promotion_lift_analysis.sql
+│   ├── 14_pareto_80_20.sql
 │   └── 15_anomaly_detection.sql
 │
 ├── data/
 │   └── financial_sample.xlsx
 │
 └── README.md
+```
 
-🚀 How to Use
+---
 
-Clone this repository:
+# 🚀 How to Use
 
-git clone https://github.com/nagadurga-p/financial-sales-analysis-sql-server.git
+1. Clone the repository:
+   ```sh
+   git clone https://github.com/nagadurga-p/financial-sales-analysis-sql-server.git
+   ```
+2. Import the Excel dataset into SQL Server (using Import Wizard or OPENROWSET).
+3. Execute SQL scripts inside the `sql/` directory.
+4. Explore results and business insights.
 
+---
 
-Import financial_sample.xlsx into SQL Server
+# 🌱 Future Enhancements
+- Power BI or Tableau dashboards
+- Automated financial KPI reporting
+- Predictive analytics for forecasting revenue
+- Customer segmentation using machine learning
 
-Execute the SQL files inside the sql/ folder sequentially
+---
 
-Analyze results and explore additional business opportunities
+# 📧 Contact
 
-📌 Future Enhancements
+- **Name:** Naga Durga Pantagolusula  
+- **Email:** nagadurgapantagolusula@gmail.com  
+- **LinkedIn:** https://www.linkedin.com/in/naga-durga-pantagolusula  
+- **GitHub:** https://github.com/nagadurga-p  
 
-Power BI visualization dashboards
-
-Predictive analytics models for forecasting revenue
-
-Customer segmentation using clustering
-
-Automated KPI reporting
-
-📧 Contact
-
-If you would like to collaborate or provide suggestions, feel free to reach out:
-
-Name: Naga Durga Pantagolusula
-
-Email: nagadurgapantagolusula@gmail.com
-
-GitHub: https://github.com/nagadurga-p
-
-LinkedIn: https://www.linkedin.com/in/naga-durga-pantagolusula
-
-💡 Contributions, feedback, and issues are welcome!
+💡 *Feedback, contributions, and improvements are welcome!*
