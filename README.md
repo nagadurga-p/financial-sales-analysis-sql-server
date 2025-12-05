@@ -135,6 +135,7 @@ Certain products are significantly more profitable, supporting an 80/20 Pareto d
 Some countries generate consistently higher net revenue, indicating market opportunities.
 
 📁 Repository Structure
+
 financial-sales-analysis-sql-server/
 │
 ├── sql/
